@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="${applicationId}">
+  <!-- ネットワーク（Photon / WebDAV） -->
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <!-- Magic Leap 2 - Space / Anchor 関連 -->
+  <uses-permission android:name="com.magicleap.permission.SPACE_MANAGER" />
+  <uses-permission android:name="com.magicleap.permission.SPACE_IMPORT_EXPORT" />
+  <uses-permission android:name="com.magicleap.permission.SPATIAL_ANCHOR" />
+  <!-- ※ メッシュを扱うときだけ必要。使わないなら削除可 -->
+  <uses-permission android:name="com.magicleap.permission.SPATIAL_MAPPING" />
+  <application>
+    <!-- Unity のエントリポイント -->
+    <activity android:name="com.unity3d.player.UnityPlayerActivity" android:theme="@style/UnityThemeSelector" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+      <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+    </activity>
+    <!-- （HTTP の WebDAV を使う場合のみ必要。HTTPS なら不要）
+    <uses-library android:name="org.apache.http.legacy" android:required="false" />
+    -->
+  </application>
+</manifest>

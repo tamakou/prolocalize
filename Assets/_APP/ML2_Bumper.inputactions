@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "ML2_Bumper",
+    "maps": [
+        {
+            "name": "Controller",
+            "id": "ffd83d6f-baaa-41e2-ba31-253e3bd9e5f2",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "2985c482-ecb3-47b0-8368-697e84f879cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Bumper",
+                    "type": "Button",
+                    "id": "3ba9f06e-9751-4dd9-9d97-f548199ab3d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4cb4c1b5-e7dc-4ed8-8514-77369afdec8f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8d9b44e-8698-40ae-8a19-aff7ad58f3fe",
+                    "path": "<MagicLeapController>/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bumper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
