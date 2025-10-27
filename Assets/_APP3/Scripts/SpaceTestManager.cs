@@ -9,6 +9,7 @@ using UnityEngine.XR.OpenXR;
 using UnityEngine.XR.OpenXR.NativeTypes; // XrResult
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Magic Leap 2 スペースのエクスポート/インポート/ローカライゼーション + WebDAV連携
@@ -604,7 +605,10 @@ public class SpaceTestManager : MonoBehaviour
                 var go = new GameObject("SpaceOrigin");
                 spaceOrigin = go.transform;
               }
+
               spaceOrigin.SetPositionAndRotation(origin.position, origin.rotation);
+
+              InvokeSnappersAfterOriginUpdate(); // ★ SpaceOrigin反映“直後”にスナップ明示トリガー
 
               if (contentRoot != null && contentRoot.parent != spaceOrigin)
               {
@@ -638,6 +642,7 @@ public class SpaceTestManager : MonoBehaviour
             }
           }
           break;
+
 
         case LocalizationMapState.LocalizationPending:
           if (isRelevant)
@@ -687,6 +692,29 @@ public class SpaceTestManager : MonoBehaviour
       }
     }
   }
+
+  // SpaceTestManager クラス内に追加（他メソッドの外）
+  private void InvokeSnappersAfterOriginUpdate()
+  {
+    try
+    {
+#if UNITY_2022_2_OR_NEWER
+      var snappers = FindObjectsByType<SnapToFloorOnLocalized>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+#else
+    var snappers = FindObjectsOfType<SnapToFloorOnLocalized>(false);
+#endif
+      foreach (var s in snappers)
+      {
+        if (!s) continue;
+        s.TriggerSnapAfterSpaceOriginUpdate(); // ★推奨経路：SpaceOrigin更新直後に実行
+      }
+    }
+    catch (System.Exception ex)
+    {
+      Debug.LogWarning($"[STM] InvokeSnappersAfterOriginUpdate failed: {ex.Message}");
+    }
+  }
+
 
   private void HandleLocalizationSuccess(LocalizationEventData eventData)
   {
